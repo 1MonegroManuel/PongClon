@@ -1,0 +1,43 @@
+# Archivos y carpetas del sistema
+[Ll]ibrary/
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Cache de Unity
+[Oo]bj/
+[Bb]in/
+Assets/AssetStoreTools*
+
+# Archivos de compilación
+*.apk
+*.aab
+*.unitypackage
+
+# Configs de usuario
+*.vs/
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# Rider
+.idea/
+*.iml
+
+# Crash Reports
+sysinfo.txt
+
+# Autogenerados
+*.db
+*.opendb
+*.pdb
