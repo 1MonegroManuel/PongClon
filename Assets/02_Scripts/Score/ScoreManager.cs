@@ -1,33 +1,65 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
+
+    [Header("UI")]
     public TMP_Text leftScoreText;
     public TMP_Text rightScoreText;
 
+    [Header("Reglas")]
+    public int maxScore = 3;
+
     private int leftScore = 0;
     private int rightScore = 0;
+    private bool gameEnded = false;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
+        else if (Instance != this) { Destroy(gameObject); return; }
+        UpdateUI();
     }
 
     public void AddPoint(bool leftPlayer)
     {
-        if (leftPlayer)
-            leftScore++;
-        else
-            rightScore++;
+        if (gameEnded) return;
+
+        if (leftPlayer) leftScore++;
+        else rightScore++;
 
         UpdateUI();
+        CheckWin();
     }
 
     void UpdateUI()
     {
-        leftScoreText.text = leftScore.ToString();
-        rightScoreText.text = rightScore.ToString();
+        if (leftScoreText) leftScoreText.text = leftScore.ToString();
+        if (rightScoreText) rightScoreText.text = rightScore.ToString();
+    }
+
+    void CheckWin()
+    {
+        if (leftScore >= maxScore)
+        {
+            gameEnded = true;
+            SceneManager.LoadScene("GameOver2");
+        }
+        else if (rightScore >= maxScore)
+        {
+            gameEnded = true;
+            SceneManager.LoadScene("GameOver");
+        }
+    }
+
+    // Opcional: por si quieres reiniciar desde otra parte
+    public void ResetScores()
+    {
+        leftScore = rightScore = 0;
+        gameEnded = false;
+        UpdateUI();
     }
 }
