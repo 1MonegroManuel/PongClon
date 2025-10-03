@@ -21,5 +21,8 @@ public class MenuManager : MonoBehaviour
             // En la aplicación compilada
             Application.Quit();
         #endif
+    }    public void ScoreGame()
+    {
+        SceneManager.LoadScene("ScoreScene");
     }
 }
