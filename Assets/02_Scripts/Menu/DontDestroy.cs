@@ -3,17 +3,47 @@ using UnityEngine;
 public class DontDestroy : MonoBehaviour
 {
     private static DontDestroy instance;
+    private static bool hasInstance = false;
 
     void Awake()
     {
-        if (instance == null)
+        // Verificar si ya existe una instancia
+        if (instance == null && !hasInstance)
         {
+            // Si no existe, esta es la primera instancia
             instance = this;
-            DontDestroyOnLoad(gameObject); // Se mantiene vivo
+            hasInstance = true;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("DontDestroy: Primera instancia creada");
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject); // Si ya hay uno, destruye el duplicado
+            // Si ya existe otra instancia, destruir esta inmediatamente
+            Debug.Log("DontDestroy: Instancia duplicada detectada, destruyendo...");
+            DestroyImmediate(gameObject);
+            return;
+        }
+    }
+
+    void Start()
+    {
+        // Verificación adicional en Start
+        if (instance != null && instance != this)
+        {
+            Debug.Log("DontDestroy: Verificación en Start - destruyendo duplicado");
+            DestroyImmediate(gameObject);
+            return;
+        }
+    }
+
+    void OnDestroy()
+    {
+        // Resetear la instancia cuando se destruye
+        if (instance == this)
+        {
+            instance = null;
+            hasInstance = false;
+            Debug.Log("DontDestroy: Instancia destruida, reseteando singleton");
         }
     }
 }

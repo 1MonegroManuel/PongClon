@@ -6,11 +6,30 @@ public class BallController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
 
+
+    
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip sonidoColision;
+    
+    public AudioSource audioSourceGoal;
+    public AudioClip sonidoGoal;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>(); // 🔹 Para cambiar color
         LaunchBall();
+
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (audioSourceGoal == null)
+        {
+            audioSourceGoal = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void LaunchBall()
@@ -36,6 +55,10 @@ public class BallController : MonoBehaviour
         {
             sr.color = Color.red; // ejemplo: rojo para la derecha
         }
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(sonidoColision);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -43,11 +66,21 @@ public class BallController : MonoBehaviour
         if (col.CompareTag("GoalLeft"))
         {
             ScoreManager.Instance.AddPoint(false);
+            
+            if (audioSourceGoal != null)
+            {
+                audioSourceGoal.PlayOneShot(sonidoGoal);
+            }
             ResetBall();
         }
         else if (col.CompareTag("GoalRight"))
         {
             ScoreManager.Instance.AddPoint(true);
+
+            if (audioSourceGoal != null)
+            {
+                audioSourceGoal.PlayOneShot(sonidoGoal);
+            }
             ResetBall();
         }
     }

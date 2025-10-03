@@ -1944,6 +1944,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  audioSource: {fileID: 0}
+  sonidoColision: {fileID: 8300000, guid: ec95e59877fd99546a3ebbd4f0c6a677, type: 3}
+  audioSourceGoal: {fileID: 0}
+  sonidoGoal: {fileID: 8300000, guid: 2f2f78bb8f615df4582468aac4b2dcf3, type: 3}
 --- !u!1 &1899668772
 GameObject:
   m_ObjectHideFlags: 0
