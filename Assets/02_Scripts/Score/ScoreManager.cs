@@ -46,11 +46,15 @@ public class ScoreManager : MonoBehaviour
         if (leftScore >= maxScore)
         {
             gameEnded = true;
+            // Guardar la puntuación antes de cambiar de escena
+            ScoreSaver.SaveScore(leftScore, rightScore, "Jugador Izquierda");
             SceneManager.LoadScene("GameOver2");
         }
         else if (rightScore >= maxScore)
         {
             gameEnded = true;
+            // Guardar la puntuación antes de cambiar de escena
+            ScoreSaver.SaveScore(leftScore, rightScore, "Jugador Derecha");
             SceneManager.LoadScene("GameOver");
         }
     }
